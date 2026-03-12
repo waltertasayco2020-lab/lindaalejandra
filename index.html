@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para Alejandra ❤️</title>
+
+<style>
+
+body{
+margin:0;
+font-family:Arial;
+color:white;
+overflow:hidden;
+text-align:center;
+}
+
+/* VIDEO FONDO */
+
+#videoFondo{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+object-fit:cover;
+z-index:-1;
+filter:brightness(0.35);
+}
+
+/* INICIO */
+
+#inicio{
+position:fixed;
+width:100%;
+height:100%;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+}
+
+#inicio h1{
+font-size:80px;
+letter-spacing:10px;
+text-shadow:0 0 40px #ff2e6d;
+}
+
+button{
+padding:12px 25px;
+border:none;
+border-radius:25px;
+font-size:20px;
+cursor:pointer;
+background:#ff2e6d;
+color:white;
+margin:10px;
+}
+
+/* CUENTA REGRESIVA */
+
+#countdown{
+display:none;
+position:fixed;
+width:100%;
+height:100%;
+background:black;
+justify-content:center;
+align-items:center;
+font-size:120px;
+}
+
+/* HISTORIA */
+
+#historia{
+display:none;
+padding-top:50px;
+}
+
+.texto{
+width:90%;
+max-width:700px;
+margin:auto;
+font-size:22px;
+}
+
+/* FOTO */
+
+.foto{
+width:180px;
+height:180px;
+max-width:80%;
+border-radius:50%;
+object-fit:cover;
+border:6px solid #ff2e6d;
+margin:20px;
+box-shadow:0 0 40px #ff2e6d;
+}
+
+/* ROSAS */
+
+.rosas span{
+position:absolute;
+font-size:28px;
+animation: caer linear infinite;
+}
+
+@keyframes caer{
+0%{transform:translateY(-10vh)}
+100%{transform:translateY(110vh)}
+}
+
+/* FUEGOS */
+
+.fuego{
+position:absolute;
+font-size:35px;
+animation: explotar 1s forwards;
+}
+
+@keyframes explotar{
+0%{transform:scale(1)}
+100%{transform:scale(3);opacity:0}
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- VIDEO -->
+<video autoplay muted loop id="videoFondo">
+<source src="video.mp4" type="video/mp4">
+</video>
+
+<!-- MUSICA -->
+<audio id="musica" loop>
+<source src="musica.mp3" type="audio/mp3">
+</audio>
+
+<div id="inicio">
+
+<h1>ALEJANDRA</h1>
+
+<p>Esta historia es para ti ❤️</p>
+
+<button onclick="empezar()">Comenzar</button>
+
+</div>
+
+<div id="countdown">3</div>
+
+<div id="historia">
+
+<div class="rosas"></div>
+
+<img src="alejandra.jpg" class="foto">
+
+<div class="texto" id="texto"></div>
+
+<button onclick="fuegos()">🎆 </button>
+
+<button onclick="declaracion()">💍 </button>
+
+</div>
+
+<script>
+
+/* HISTORIA */
+
+const mensaje = `
+A veces la vida pone personas en tu camino
+sin avisar.
+
+Un día simplemente aparecen
+y cambian tu mundo.
+
+Alejandra, desde que llegaste
+hay algo diferente en mis días.
+
+Tu sonrisa ilumina momentos
+y tu forma de ser hace todo especial.
+
+Hoy solo quería decirte algo...
+
+Eres alguien muy importante para mí ❤️
+`;
+
+let i=0;
+
+function escribir(){
+if(i < mensaje.length){
+document.getElementById("texto").innerHTML += mensaje.charAt(i);
+i++;
+setTimeout(escribir,40);
+}
+}
+
+/* INICIO PELICULA */
+
+function empezar(){
+
+document.getElementById("inicio").style.display="none";
+
+const cd=document.getElementById("countdown");
+
+cd.style.display="flex";
+
+let n=3;
+
+const intervalo=setInterval(()=>{
+
+cd.innerHTML=n;
+
+n--;
+
+if(n<0){
+
+clearInterval(intervalo);
+
+cd.style.display="none";
+
+document.getElementById("historia").style.display="block";
+
+document.getElementById("musica").play();
+
+escribir();
+
+}
+
+},1000);
+
+}
+
+/* ROSAS */
+
+function rosa(){
+
+const r=document.createElement("span");
+
+r.innerHTML="🌹";
+
+r.style.left=Math.random()*100+"vw";
+
+r.style.animationDuration=(Math.random()*3+3)+"s";
+
+document.querySelector(".rosas").appendChild(r);
+
+setTimeout(()=>{r.remove()},6000);
+
+}
+
+setInterval(rosa,500);
+
+/* FUEGOS */
+
+function fuegos(){
+
+for(let i=0;i<30;i++){
+
+const f=document.createElement("div");
+
+f.className="fuego";
+
+f.innerHTML="✨";
+
+f.style.left=Math.random()*100+"vw";
+
+f.style.top=Math.random()*100+"vh";
+
+document.body.appendChild(f);
+
+setTimeout(()=>{f.remove()},1000);
+
+}
+
+}
+
+/* DECLARACION */
+
+function declaracion(){
+
+alert("Alejandra ❤️\n\nMe gustas mucho.\n¿Te gustaría escribir esta historia conmigo?");
+
+}
+
+</script>
+
+</body>
+</html>
+
